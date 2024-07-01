@@ -19,11 +19,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    /*
+
+
+
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers(){
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
-    }*/
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable UUID id) {

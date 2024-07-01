@@ -25,7 +25,6 @@ public class User implements Serializable {
     private String name;
 
     @OneToOne
-    @Column(nullable = false, unique = true)
     private Account account;
 
     @ManyToMany
@@ -39,7 +38,7 @@ public class User implements Serializable {
     @OneToMany (mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Review> review = new HashSet<>();
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Wishlist> wishlist = new HashSet<>();
 
 

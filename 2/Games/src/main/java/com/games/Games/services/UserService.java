@@ -1,5 +1,6 @@
 package com.games.Games.services;
 
+import com.games.Games.dtos.UserRecordDto;
 import com.games.Games.models.Account;
 import com.games.Games.models.BestOfTheYear;
 import com.games.Games.models.User;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -27,12 +29,25 @@ public class UserService {
         this.wishlistRepository = wishlistRepository;
     }
 
-    public List<User> getAllUsers(UUID id){
+    public List<User> getAllUsers(){
+
         return userRepository.findAll();
     }
 
     @Transactional
+    public User saveUser(UserRecordDto userRecordDto){
+        User user = new User();
+        user.setAccount(userRecordDto.account());
+        user.setName(userRecordDto.name());
+        user.setGames(gameRepository.findAllById(userRecordDto.games()).stream().collect(Collectors.toSet()));
+        user.setWishlist(wishlistRepository.findAllById(userRecordDto.wishlist()).stream().collect(Collectors.toSet()));
+
+        return userRepository.save(user);
+    }
+
+    @Transactional
     public void deleteUser(UUID id) {
+
         userRepository.deleteById(id);
     }
 }

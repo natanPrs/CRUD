@@ -18,6 +18,12 @@ import java.util.UUID;
 public class Account implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    public Account(String name, String username, String password) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;

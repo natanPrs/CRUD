@@ -23,7 +23,6 @@ public class BestOfTheYear implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(nullable = false, unique = true)
     @OneToOne
     @JoinColumn(name = "game_id")
     private Game game;

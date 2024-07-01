@@ -18,6 +18,16 @@ import java.util.UUID;
 public class Game implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    public Game(UUID id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
+    public Game(String title, String publisher) {
+        this.title = title;
+        this.publisher = publisher;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
