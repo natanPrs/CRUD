@@ -22,6 +22,7 @@ public class UserService {
     private final GameRepository gameRepository;
     private final WishlistRepository wishlistRepository;
 
+
     public UserService(UserRepository userRepository, AccountRepository accountRepository, GameRepository gameRepository, WishlistRepository wishlistRepository) {
         this.userRepository = userRepository;
         this.accountRepository = accountRepository;
@@ -34,13 +35,14 @@ public class UserService {
         return userRepository.findAll();
     }
 
+
     @Transactional
     public User saveUser(UserRecordDto userRecordDto){
         User user = new User();
         user.setAccount(userRecordDto.account());
         user.setName(userRecordDto.name());
         user.setGames(gameRepository.findAllById(userRecordDto.games()).stream().collect(Collectors.toSet()));
-        user.setWishlist(wishlistRepository.findAllById(userRecordDto.wishlist()).stream().collect(Collectors.toSet()));
+       // user.setWishlist(wishlistRepository.findAllById(userRecordDto.wishlist()).stream().collect(Collectors.toSet()));
 
         return userRepository.save(user);
     }

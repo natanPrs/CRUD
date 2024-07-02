@@ -9,6 +9,6 @@ import java.util.UUID;
 
 public record UserRecordDto(String name,
                             Account account,
-                            Set<UUID> games,
-                            Set<UUID> wishlist) {
+                            Set<UUID> games){
+                          //  Set<UUID> wishlist) {
 }

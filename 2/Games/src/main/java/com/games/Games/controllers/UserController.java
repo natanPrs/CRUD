@@ -1,6 +1,7 @@
 package com.games.Games.controllers;
 
 
+import com.games.Games.dtos.UserRecordDto;
 import com.games.Games.models.User;
 import com.games.Games.services.UserService;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,10 @@ public class UserController {
     }
 
 
+    @PostMapping
+    public ResponseEntity<User> saveUser(@RequestBody UserRecordDto userRecordDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveUser(userRecordDto));
+    }
 
 
     @GetMapping
