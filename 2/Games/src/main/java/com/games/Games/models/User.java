@@ -21,6 +21,14 @@ import java.util.UUID;
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    public User(UUID id, String name, Account account, Set<Game> games, Set<Wishlist> wishlist) {
+        this.id = id;
+        this.name = name;
+        this.account = account;
+        this.games = games;
+        this.wishlist = wishlist;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;

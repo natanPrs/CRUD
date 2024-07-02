@@ -26,6 +26,11 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveUser(userRecordDto));
     }
 
+    /*@GetMapping
+    public ResponseEntity getAllusers(){
+        var allUsers = userService.getAllUsers();
+        return ResponseEntity.ok(allUsers);
+    }*/
 
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers(){
