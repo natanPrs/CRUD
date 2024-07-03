@@ -36,6 +36,11 @@ public class ReviewService {
     @Transactional
     public Review saveReview(ReviewRecordDto reviewRecordDto){
         Review review = new Review();
+
+        if (reviewRecordDto.rating() < 0 || reviewRecordDto.rating() > 10) {
+            throw new IllegalArgumentException("Rating must be between 0 and 10");
+        }
+
         review.setUser(userRepository.findById(reviewRecordDto.user()).get());
         review.setGame(gameRepository.findById(reviewRecordDto.game()).get());
         review.setTitle(reviewRecordDto.title());

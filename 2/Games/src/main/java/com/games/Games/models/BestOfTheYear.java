@@ -1,5 +1,6 @@
 package com.games.Games.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.tools.attach.AgentInitializationException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,7 @@ public class BestOfTheYear implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToOne
     @JoinColumn(name = "game_id")
     private Game game;
@@ -30,7 +32,10 @@ public class BestOfTheYear implements Serializable {
     @Column(nullable = false, unique = true)
     private Integer year;
 
-
+    @JsonProperty("game")
+    public String getBestOfTheYear(){
+        return game.getTitle();
+    }
 
 
 
