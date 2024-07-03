@@ -1,6 +1,8 @@
 package com.games.Games.models;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -47,6 +49,7 @@ public class User implements Serializable {
     private Set<Game> games = new HashSet<>();
 
     @OneToMany (mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<Review> review = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

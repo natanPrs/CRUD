@@ -1,8 +1,11 @@
 package com.games.Games.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.io.schubfach.FloatToDecimal;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +27,8 @@ public class Review implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @Min(0)
+    @Max(10)
     @Column(nullable = false)
     private Float rating;
 
@@ -34,11 +39,16 @@ public class Review implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private User user;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToOne
     @JoinColumn(name = "game_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Game game;
 
+    @JsonProperty("game")
+    public String getGameTitle() {
+        return game.getTitle();
+    }
 }
