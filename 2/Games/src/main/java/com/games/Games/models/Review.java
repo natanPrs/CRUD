@@ -2,6 +2,7 @@ package com.games.Games.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.core.io.schubfach.FloatToDecimal;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
@@ -20,17 +21,20 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "tb_review")
+@JsonPropertyOrder({"user", "game", "rating", "title", "description"})
 public class Review implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private UUID id;
 
     @Min(0)
     @Max(10)
     @Column(nullable = false)
     private Float rating;
+
 
     @Column(nullable = false)
     private String title;
@@ -39,16 +43,20 @@ public class Review implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private User user;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "game_id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Game game;
 
     @JsonProperty("game")
     public String getGameTitle() {
         return game.getTitle();
     }
+
+    @JsonProperty("user")
+    public String getUsername() {
+        return user.getAccount().getUsername();
+    }
+
 }

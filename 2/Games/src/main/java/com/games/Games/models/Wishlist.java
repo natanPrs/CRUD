@@ -27,6 +27,7 @@ public class Wishlist implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private UUID id;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -44,10 +45,6 @@ public class Wishlist implements Serializable {
     )
     private Set<Game> games = new HashSet<>();
 
-    @JsonProperty("User")
-    public String getNameUser(){
-        return user.getName();
-    }
 
     @JsonProperty("games")
     public Set<String> getGameTitles() {

@@ -1,5 +1,6 @@
 package com.games.Games.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +31,7 @@ public class Game implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private UUID id;
 
     @Column(nullable = false, unique = true)
@@ -39,5 +41,10 @@ public class Game implements Serializable {
 
     @OneToOne(mappedBy = "game", cascade = CascadeType.ALL)
     private BestOfTheYear bestOfTheYear;
+
+    @JsonProperty("BestOfTheYear")
+    public Object getBestOfTheYear() {
+        return bestOfTheYear != null ? bestOfTheYear : "No";
+    }
 
 }

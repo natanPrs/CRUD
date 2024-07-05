@@ -2,6 +2,7 @@ package com.games.Games.controllers.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -10,8 +11,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -23,16 +22,17 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(businessException.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
-    @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<String> handleNotFoundException(NoSuchElementException notFoundException) {
-        return new ResponseEntity<>("Element not found!", HttpStatus.NOT_FOUND);
+    @ExceptionHandler(DuplicateUsernameException.class)
+    public ResponseEntity<String> handleDuplicateUsernameException(DuplicateUsernameException duplicateUsernameException) {
+        return new ResponseEntity<>(duplicateUsernameException.getMessage(), HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(Throwable.class)
-    public ResponseEntity<String> handleUnexpectedException(Throwable unexpectedException) {
-        var message = "Unexpected server error. Please, see the logs.";
-        logger.error(message, unexpectedException);
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<String> handleDataIntegrityViolationException(DataIntegrityViolationException dataIntegrityViolationException) {
+        if (dataIntegrityViolationException.getMessage().contains("constraint [ukhsqa0fp3f7rv9yj885sixijg8]")) {
+            return new ResponseEntity<>("Username already exists.", HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>("Data integrity violation.", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -48,5 +48,12 @@ public class GlobalExceptionHandler {
         });
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(Throwable.class)
+    public ResponseEntity<String> handleUnexpectedException(Throwable unexpectedException) {
+        var message = "Unexpected server error. Please, see the logs.";
+        logger.error(message, unexpectedException);
+        return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
