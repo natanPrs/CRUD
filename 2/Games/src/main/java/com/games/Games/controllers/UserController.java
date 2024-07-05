@@ -4,6 +4,7 @@ package com.games.Games.controllers;
 import com.games.Games.dtos.UserRecordDto;
 import com.games.Games.models.User;
 import com.games.Games.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class UserController {
 
 
     @PostMapping
-    public ResponseEntity<User> saveUser(@RequestBody UserRecordDto userRecordDto) {
+    public ResponseEntity<User> saveUser(@Valid @RequestBody UserRecordDto userRecordDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveUser(userRecordDto));
     }
 

@@ -1,6 +1,7 @@
 package com.games.Games.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,12 +29,13 @@ public class Account implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(nullable = false)
+    @NotEmpty
     private String name;
 
+    @NotEmpty
     @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false)
+    @NotEmpty
     private String password;
 }
