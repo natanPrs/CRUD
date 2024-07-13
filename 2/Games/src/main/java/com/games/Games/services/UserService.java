@@ -37,6 +37,11 @@ public class UserService {
     @Transactional
     public User saveUser(UserRecordDto userRecordDto){
         User user = new User();
+        Account account = new Account();
+        account.setUsername(userRecordDto.account().getUsername());
+        account.setPassword(userRecordDto.account().getPassword());
+        account.setName(userRecordDto.account().getName());
+
         user.setAccount(userRecordDto.account());
         user.setName(userRecordDto.name());
         user.setGames(gameRepository.findAllById(userRecordDto.games()).stream().collect(Collectors.toSet()));

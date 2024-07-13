@@ -16,3 +16,4 @@ public record UserRecordDto(
         Account account,
 
         Set<UUID> games){}
+
