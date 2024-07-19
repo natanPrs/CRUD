@@ -21,10 +21,11 @@ import java.util.UUID;
 public class Account implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public Account(String name, String username, String password) {
+    public Account(String name, String username, String password, User user) {
         this.name = name;
         this.username = username;
         this.password = password;
+        this.user = user;
     }
 
     @Id
@@ -41,4 +42,8 @@ public class Account implements Serializable {
 
     @NotEmpty
     private String password;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

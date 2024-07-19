@@ -5,38 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <title>Cadastro de Usuário</title>
 </head>
 <body>
+<header class="menu">
+    <nav>
+        <a class="logo" href="/">SHABADACA</a>
+        <div class="mobile-menu">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+        <ul class="nav-list">
+            <li><a href="#">CREATE</a></li>
+            <li><a href="#">READ</a></li>
+            <li><a href="#">UPDATE</a></li>
+            <li><a href="#">DELETE</a></li>
+        </ul>
+    </nav>
+</header>
+
 <div class="container">
-    <h1>Cadastro de Usuário</h1>
-    <form id="userForm" class="row g-3">
-        <div class="col-md-6">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username">
+    <div class="between">
+        <div class="cadastroh1"><h1>Cadastro de Usuário</h1></div>
+        <div class="box">
+            <form id="userForm" class="row g-3">
+                <div class="col-md-6">
+                    <label for="username" class="form-label" id="usernamelabel">USERNAME</label>
+                    <input type="text" class="form-control" id="username">
+                </div>
+                <div class="col-md-6">
+                    <label for="password" class="form-label">PASSWORD</label>
+                    <input type="password" class="form-control" id="password">
+                </div>
+                <div class="col-12">
+                    <label for="accountName" class="form-label">NAME FOR ACCOUNT</label>
+                    <input type="text" class="form-control" id="accountName">
+                </div>
+                <div class="col-12">
+                    <label for="completeName" class="form-label">YOUR COMPLETE NAME</label>
+                    <input type="text" class="form-control" id="completeName">
+                </div>
+                <div class="col-12">
+                    <label for="games" class="form-label">GAMES</label>
+                    <input type="text" class="form-control" id="games" placeholder="Enter game IDs separated by commas">
+                </div>
+                <div class="col-12">
+                    <button type="button" class="btn btn-primary" onclick="submitForm()">Sign in</button>
+                </div>
+            </form>
         </div>
-        <div class="col-md-6">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password">
-        </div>
-        <div class="col-12">
-            <label for="accountName" class="form-label">Name for Account</label>
-            <input type="text" class="form-control" id="accountName">
-        </div>
-        <div class="col-12">
-            <label for="completeName" class="form-label">Your Complete Name</label>
-            <input type="text" class="form-control" id="completeName">
-        </div>
-        <div class="col-12">
-            <label for="games" class="form-label">Games</label>
-            <input type="text" class="form-control" id="games" placeholder="Enter game IDs separated by commas">
-        </div>
-        <div class="col-12">
-            <button type="button" class="btn btn-primary" onclick="submitForm()">Sign in</button>
-        </div>
-    </form>
+    </div>
 </div>
 
+<footer class="footer">
+    <hr>
+    <p>© 2024 natanPrs. All rights reserved. I do not own any trademarks to be owned by their respective owners in the US and other countries. This is clearly satire, do not take it seriously.</p>
+    <hr>
+
+</footer>
 <script>
     function submitForm() {
         const username = document.getElementById('username').value;
@@ -69,6 +99,7 @@
         .catch(error => {
             console.error('Error:', error);
         });
+
     }
 </script>
 </body>
